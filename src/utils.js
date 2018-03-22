@@ -1,2 +1,5 @@
-// eslint-disable-next-line
-export const APP_SECRET = 'GraphQL-is-aw3some';
+const APP_SECRET = 'GraphQL-is-aw3some';
+
+module.exports = {
+  APP_SECRET,
+};

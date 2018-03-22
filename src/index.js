@@ -19,14 +19,11 @@ const resolvers = {
     post(parent, { url, description }, ctx, info) {
       return ctx.db.mutation.createLink({ data: { url, description } }, info);
     },
-    async signup(parent, args, ctx, info) {
+    async signup(parent, args, ctx) {
       const password = await bcrypt.hash(args.password, 10);
-      const user = await ctx.db.mutation.createUser(
-        {
-          data: { ...args, password },
-        },
-        info,
-      );
+      const user = await ctx.db.mutation.createUser({
+        data: { ...args, password },
+      });
 
       const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
@@ -35,8 +32,8 @@ const resolvers = {
         user,
       };
     },
-    async login(parent, args, ctx, info) {
-      const user = await ctx.db.query.user({ where: { email: args.email } }, info);
+    async login(parent, args, ctx) {
+      const user = await ctx.db.query.user({ where: { email: args.email } });
       if (!user) {
         throw new Error(`Could not find user with email: ${args.email}`);
       }
