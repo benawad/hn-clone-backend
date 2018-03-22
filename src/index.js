@@ -6,6 +6,14 @@ const jwt = require('jsonwebtoken');
 const { APP_SECRET, getUserId } = require('./utils');
 
 const resolvers = {
+  Subscription: {
+    newLink: {
+      subscribe: (parent, args, ctx, info) => ctx.db.subscription.link({}, info),
+    },
+    newVote: {
+      subscribe: (parent, args, ctx, info) => ctx.db.subscription.vote({}, info),
+    },
+  },
   Query: {
     feed(parent, { filter, first, skip }, ctx, info) {
       const where = filter
