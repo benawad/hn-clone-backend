@@ -11,6 +11,11 @@ const resolvers = {
       return ctx.db.query.links({ first, skip, where }, info);
     },
   },
+  Mutation: {
+    post(parent, { url, description }, ctx, info) {
+      return ctx.db.mutation.createLink({ data: { url, description } }, info);
+    },
+  },
 };
 
 const server = new GraphQLServer({
