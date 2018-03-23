@@ -15,12 +15,12 @@ const resolvers = {
     },
   },
   Query: {
-    feed(parent, { filter, first, skip }, ctx, info) {
+    feed(parent, { filter, first, skip, orderBy }, ctx, info) {
       const where = filter
         ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
         : {};
 
-      return ctx.db.query.links({ first, skip, where }, info);
+      return ctx.db.query.links({ first, skip, where, orderBy }, info);
     },
   },
   Mutation: {
