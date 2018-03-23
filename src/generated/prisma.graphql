@@ -9,6 +9,7 @@ type Link implements Node {
   id: ID!
   description: String!
   url: String!
+  createdAt: DateTime!
   postedBy(where: UserWhereInput): User
   votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
@@ -51,6 +52,8 @@ type BatchPayload {
   """
   count: Long!
 }
+
+scalar DateTime
 
 """
 A connection to a list of items.
@@ -117,16 +120,17 @@ enum LinkOrderByInput {
   description_DESC
   url_ASC
   url_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type LinkPreviousValues {
   id: ID!
   description: String!
   url: String!
+  createdAt: DateTime!
 }
 
 type LinkSubscriptionPayload {
@@ -384,6 +388,35 @@ input LinkWhereInput {
   All values not ending with the given string.
   """
   url_not_ends_with: String
+  createdAt: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  createdAt_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  createdAt_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  createdAt_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  createdAt_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  createdAt_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  createdAt_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  createdAt_gte: DateTime
   postedBy: UserWhereInput
   votes_every: VoteWhereInput
   votes_some: VoteWhereInput

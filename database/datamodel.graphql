@@ -2,6 +2,7 @@ type Link {
   id: ID! @unique
   description: String!
   url: String!
+  createdAt: DateTime!
   postedBy: User
   votes: [Vote!]!
 }
